@@ -67,7 +67,7 @@ const validateCred = (cardNumArray) => {
                 arrOfEveryOtherDouble.unshift(num);
             };
 
-        // This runs when the original card length is odd
+            // This runs when the original card length is odd
         } else {
             if (i % 2 === 1) {
                 // Everyother number is doubled and converted to a string starting with the second to the last number
@@ -90,7 +90,7 @@ const validateCred = (cardNumArray) => {
 
         /**If its a string and more than one digit convert to a number and
          * add each digit up. If its one digit just convert it to a number. 
-         * If its a number do nothing. All items get pushed to skip1SumArray*/ 
+         * If its a number do nothing. All items get pushed to skip1SumArray*/
         if (typeof el === 'string' && el.length === 2) {
             let digit1 = Number(el[0]);
             let digit2 = Number(el[1]);
@@ -130,12 +130,44 @@ const validateCred = (cardNumArray) => {
 const findInvalidCards = arrayOfCards => {
     let invalidCardArray = [];
     arrayOfCards.forEach((elem) => {
-       if (!(validateCred(elem))) {
-           invalidCardArray.push(elem)
-       };
+        if (!(validateCred(elem))) {
+            invalidCardArray.push(elem)
+        };
     });
     return invalidCardArray;
 };
+
+const idIndvalidCardCompanies = cardsArray => {
+    const amex3 = 'Amex (American Express)';
+    const visa4 = 'Visa';
+    const mc5 = 'Mastercard';
+    const dis6 = 'Discover';
+    let cardCompanies = [];
+    cardsArray.forEach((card) => {
+        const firstDigit = card[0];
+        if (!cardCompanies.includes(amex3) ||
+        !cardCompanies.includes(visa4) ||
+        !cardCompanies.includes(mc5) ||
+        !cardCompanies.includes(dis6)) {
+            if (firstDigit === 3) {
+                cardCompanies.push(amex3);
+            } else if (firstDigit === 4) {
+                cardCompanies.push(visa4);
+            } else if (firstDigit === 5) {
+                cardCompanies.push(mc5);
+            } else if (firstDigit === 6) {
+                cardCompanies.push(dis6);
+            } else {
+                console.log('Company not found');
+            }
+        }
+    });
+    return cardCompanies;
+};
+
+const invalidCards = findInvalidCards(batch);
+const invalidCardCos = idIndvalidCardCompanies(invalidCards);
+console.log(invalidCardCos);
 
 
 
